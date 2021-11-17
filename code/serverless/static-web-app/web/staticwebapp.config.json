@@ -4,8 +4,8 @@
       "route": "/api/products/*",
       "methods": [
         "GET",
-        "PUT",
         "POST",
+        "PATCH",
         "DELETE"
       ],
       "allowedRoles": [
@@ -41,10 +41,7 @@
   "navigationFallback": {
     "rewrite": "index.html",
     "exclude": [
-      "/images/*.{png,jpg,gif}",
-      "/css/*",
-      "/static/images/*.{png,jpg,gif}",
-      "/static/css/*"
+      "/*.{css,scss,js,png,gif,ico,jpg}"
     ]
   },
   "responseOverrides": {
