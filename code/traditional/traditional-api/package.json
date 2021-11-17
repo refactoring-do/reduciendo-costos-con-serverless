@@ -1,0 +1,26 @@
+{
+  "name": "crud-sql-api",
+  "version": "1.0.0",
+  "description": "Traditional API CRUD with Azure CosmosDB",
+  "author": "Marluan Espiritusanto",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "azure",
+    "cosmosdb",
+    "api"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "@azure/cosmos": "^3.14.1",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.11.7",
+    "dotenv": "^10.0.0"
+  }
+}

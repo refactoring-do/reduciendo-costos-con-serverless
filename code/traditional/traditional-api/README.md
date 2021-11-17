@@ -1,0 +1,1 @@
+# CosmosDB traditional RESTful api
