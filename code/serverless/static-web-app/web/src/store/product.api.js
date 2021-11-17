@@ -8,7 +8,7 @@ export const deleteProductApi = async (product) => {
 };
 
 export const updateProductApi = async (product) => {
-  await axios.put(
+  await axios.patch(
     `${window.location.origin}/${API}/products/${product.id}`,
     product
   );
@@ -17,7 +17,6 @@ export const updateProductApi = async (product) => {
 };
 
 export const addProductApi = async (product) => {
-  console.log(axios);
   const { data } = await axios.post(
     `${window.location.origin}/${API}/products`,
     product
