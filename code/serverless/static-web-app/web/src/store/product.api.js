@@ -2,28 +2,32 @@ import axios from "axios";
 import API from "./config";
 
 export const deleteProductApi = async (product) => {
-  await axios.delete(`${API}/products/${product.id}`);
+  await axios.delete(`${window.location.origin}/${API}/products/${product.id}`);
 
   return true;
 };
 
 export const updateProductApi = async (product) => {
-  await axios.put(`${API}/products/${product.id}`, product);
+  await axios.put(
+    `${window.location.origin}/${API}/products/${product.id}`,
+    product
+  );
 
   return product;
 };
 
 export const addProductApi = async (product) => {
   console.log(axios);
-  const { data } = await axios.post(`${API}/products`, product);
+  const { data } = await axios.post(
+    `${window.location.origin}/${API}/products`,
+    product
+  );
 
   return data.data;
 };
 
 export const loadProductsApi = async () => {
-  const { data } = await axios.get(`${API}/products`);
-
-  console.log(data.data);
+  const { data } = await axios.get(`${window.location.origin}/${API}/products`);
 
   return data.data;
 };
