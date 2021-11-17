@@ -1,8 +1,6 @@
 import axios from "axios";
 import API from "./config";
 
-const captains = console;
-
 export const deleteProductApi = async (product) => {
   await axios.delete(`${API}/products/${product.id}`);
 
