@@ -1,0 +1,53 @@
+name: Deploy Node.js to Azure Web App
+
+on:
+  push:
+    branches:
+      - traditional-api
+
+env:
+  AZURE_WEBAPP_NAME: app-traditiotal-api-eastus2
+  AZURE_WEBAPP_PACKAGE_PATH: "./code/traditional/traditional-api"
+  NODE_VERSION: "14.x"
+
+jobs:
+  test-code:
+    name: Test code
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - name: Checkout from GitHub
+        uses: actions/checkout@master
+
+      - name: Run the tests
+        run: |
+          cd ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          npm install
+          npm run test --if-present
+
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Checkout from GitHub
+        uses: actions/checkout@master
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: npm install, build
+        run: |
+          cd ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          npm install
+
+      - name: "Deploy to Azure WebApp"
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
