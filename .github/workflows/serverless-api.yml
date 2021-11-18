@@ -23,6 +23,7 @@ jobs:
 
       - name: Run the tests
         run: |
+          cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           npm install
           npm run test --if-present
 
@@ -42,7 +43,8 @@ jobs:
       - name: Installing Dependecies
         shell: bash
         run: |
-          pushd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          pushd .
           npm install
           popd
 
