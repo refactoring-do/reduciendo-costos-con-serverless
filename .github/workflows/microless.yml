@@ -1,0 +1,57 @@
+name: Microless deployment
+
+on:
+  push:
+    branches:
+      - microless
+
+env:
+  AZURE_FUNCTIONAPP_NAME: func-microless-eastus2
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: "./code/serverless/microless"
+  NODE_VERSION: "14.x"
+
+jobs:
+  test-code:
+    name: Test code
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - name: Checkout from GitHub
+        uses: actions/checkout@master
+
+      - name: Run the tests
+        run: |
+          cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          npm install
+          npm run test --if-present
+
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    needs: test-code
+    steps:
+      - name: Checkout from GitHub
+        uses: actions/checkout@master
+
+      - name: Setup Node Environment
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Installing Dependecies
+        shell: bash
+        run: |
+          cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          pushd .
+          npm install
+          npm run build
+          popd
+
+      - name: Deploy to Azure
+        uses: Azure/functions-action@v1.3.2
+        with:
+          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          publish-profile: ${{ secrets.MICROLESS_FUNCTION_PROFILE }}
