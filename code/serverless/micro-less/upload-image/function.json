@@ -1,0 +1,27 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "post"
+      ],
+      "route": "images"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "blob",
+      "direction": "out",
+      "name": "outputBlob",
+      "path": "images-storage/{rand-guid}",
+      "connection": "STORAGE_ACCOUNT_CONNECTION_STRING"
+    }
+  ],
+  "scriptFile": "../dist/upload-image/index.js"
+}

@@ -1,0 +1,21 @@
+{
+  "bindings": [
+    {
+      "type": "cosmosDBTrigger",
+      "name": "documents",
+      "direction": "in",
+      "connectionStringSetting": "COSMOSDB_CONNECTION_STRING",
+      "databaseName": "SaveMoneyServerless",
+      "collectionName": "ImageResult",
+      "createLeaseCollectionIfNotExists": true,
+      "leaseCollectionName": "leases"
+    },
+    {
+      "type": "sendGrid",
+      "direction": "out",
+      "name": "$return",
+      "apiKey": "SENDGRID_API_KEY"
+    }
+  ],
+  "scriptFile": "../dist/notificate-image-info/index.js"
+}

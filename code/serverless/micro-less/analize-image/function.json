@@ -1,0 +1,21 @@
+{
+  "bindings": [
+    {
+      "name": "myBlob",
+      "type": "blobTrigger",
+      "direction": "in",
+      "path": "images-storage/{filename}",
+      "connection": "STORAGE_ACCOUNT_CONNECTION_STRING"
+    },
+    {
+      "type": "cosmosDB",
+      "direction": "out",
+      "name": "outputDocument",
+      "databaseName": "SaveMoneyServerless",
+      "collectionName": "ImageResult",
+      "createIfNotExists": true,
+      "connectionStringSetting": "COSMOSDB_CONNECTION_STRING"
+    }
+  ],
+  "scriptFile": "../dist/analize-image/index.js"
+}
